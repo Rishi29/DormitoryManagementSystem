@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Building</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous" />
+    <link rel="stylesheet" th:href="@{css/app.css}" />
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'/>
+    <meta charset="utf-8" />
+</head>
+<body>
+<div class="ctnr" th:fragment="addBuilding">
+    <header>
+        <h1>Add Building</h1>
+    </header>
+    <main>
+        <div class="ctnr" th:fragment="addBuilding">
+            <h3 th:text="${message}"></h3>
+
+            <form action="#" th:action="@{/admin/building/add}" th:object="${building}" method="post" enctype="multipart/form-data">
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                </div>
+
+
+                <label for="name">Building No.</label>
+                <input type="text" th:field="*{buildingNo}" class="form-control" id="name" placeholder="141"/>
+
+                <label for="name">Building Name</label>
+                <input type="text" th:field="*{buildingName}" class="form-control" id="name" placeholder="veril"/>
+
+                <label for="name">Address</label>
+                <input type="text" th:field="*{buildingAddress}" class="form-control" id="name" placeholder="Fairfield"/>
+
+
+
+                <input type="hidden" th:field="*{id}"/>
+                <button type="submit" class="btn btn-success">Add</button>
+                <a class="btn btn-success btn-large" th:href="@{/admin/building/all}">View All Buiilding</a>
+
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>

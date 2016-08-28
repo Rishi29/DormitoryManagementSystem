@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Item</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous" />
+    <link rel="stylesheet" th:href="@{css/app.css}" />
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'/>
+    <meta charset="utf-8" />
+</head>
+<body>
+<div class="ctnr" th:fragment="createRoom">
+    <header>
+        <h1>Create Room</h1>
+    </header>
+    <main>
+        <div class="ctnr" th:fragment="createRoom">
+            <h3 th:text="${message}"></h3>
+
+            <form action="#" th:action="@{/admin/room/add}" th:object="${room}" method="post" enctype="multipart/form-data">
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                </div>
+
+
+                <div>
+                    <label>Select Building</label>
+                    <select th:field="*{building}">
+                        <option disabled="true" selected="selected" value="">Select</option>
+                        <option th:each="building:${buildingList}" th:value="${building.id}" th:text="${building.buildingNo}"></option>
+                    </select>
+                </div>
+
+                <div>
+                       <div th:each="item : ${itemList}">
+                    <input type="checkbox" name="vehicle" value="Bike"/></div>
+
+                </div>
+
+                <ul>
+                    <li th:each="feat : ${allFeatures}">
+                        <input type="checkbox" th:value="${feat}" th:checked="${feat == 3}"></input>
+                        <label th:for="${#ids.prev('features')}" th:text="${'seedstarter.feature.' + feat}">Electric Heating</label>
+                    </li>
+                    <li th:remove="all">
+                        <input id="removed1" type="checkbox" /> <label for="removed1">Turf</label>
+                    </li>
+                </ul>
+
+                <!--<div>-->
+                <!--<label>Select Type</label>-->
+                <!--<select th:field="*{roomType}">-->
+                <!--<option disabled="true" selected="selected" value=" ">Select</option>-->
+                <!--<option th:each="type:${roomType}" th:value="${roo}"-->
+                <!--</select>-->
+
+                <!--</div>-->
+                <label for="name">Room No</label>
+                <input type="text" th:field="*{roomNo}" class="form-control" id="name" />
+
+                <label for="name">Description</label>
+                <input type="text" th:field="*{description}" class="form-control" id="name"/>
+
+
+
+                <input type="hidden" th:field="*{id}"/>
+                <button type="submit" class="btn btn-success">Add</button>
+                <a class="btn btn-success btn-large" th:href="@{/admin/item/all}">View All Items</a>
+
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>
